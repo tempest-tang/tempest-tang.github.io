@@ -13,7 +13,7 @@
 
 
 
-<title>Test | Hexo</title>
+<title>Arduino+esp32+tft实现智能小电视 | Hexo</title>
 
 
 
@@ -196,7 +196,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Test</h1>
+            <h1 class="post-title">Arduino+esp32+tft实现智能小电视</h1>
             
                 <div class="post-meta">
                     
@@ -205,14 +205,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 30, 2023&nbsp;&nbsp;21:15:01</a>
+                        Date: <a href="#">December 3, 2023&nbsp;&nbsp;14:10:21</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/test/">test</a>
+                                <a href="/categories/blog1/">blog1</a>
                             
                         </span>
                     
@@ -221,18 +221,124 @@
         </header>
 
         <div class="post-content">
-            <h3 id="1-This-is-a-blog-Test"><a href="#1-This-is-a-blog-Test" class="headerlink" title="1. This is a blog Test"></a>1. This is a blog Test</h3><ul>
-<li>First</li>
-<li>Second</li>
+            <h1 id="Arduino-esp32-tft实现智能小电视（未完）"><a href="#Arduino-esp32-tft实现智能小电视（未完）" class="headerlink" title="Arduino+esp32+tft实现智能小电视（未完）"></a>Arduino+esp32+tft实现智能小电视（未完）</h1><h5 id="（本文是作者于esp32开发板学习过程中所作的笔记，如有错误，劳请纠正）"><a href="#（本文是作者于esp32开发板学习过程中所作的笔记，如有错误，劳请纠正）" class="headerlink" title="（本文是作者于esp32开发板学习过程中所作的笔记，如有错误，劳请纠正）"></a>（本文是作者于esp32开发板学习过程中所作的笔记，如有错误，劳请纠正）</h5><h2 id="1、文字"><a href="#1、文字" class="headerlink" title="1、文字"></a>1、文字</h2><ul>
+<li><h3 id="对于esp32显示文字问题的想法和提供解决方案"><a href="#对于esp32显示文字问题的想法和提供解决方案" class="headerlink" title="对于esp32显示文字问题的想法和提供解决方案"></a>对于esp32显示文字问题的想法和提供解决方案</h3></li>
 </ul>
+<p><strong>摘要：</strong> 我们都知道，要在单片机上使用汉字输出，都必须汉字点阵化，然后再集成到单片机中进行输出；然而这里有个弊病，就是你输出的汉字每次都必须使用类似于 PCtoLCD2018 这样的软件来处理，极其不方便；而如果单片机要同上位机进行文字通信的时候，上位机的文字其实不受限的，这个时候采取预处理文字的方式就不行了，虽然我自己采用过像素化进行通信，但是始终觉得非常不便。<br>              事实上，文字的调整是个高频的事情，如果每次使用 PCtoLCD2018 来处理实在太繁琐了，因此就产生了一个基本问题：重复修改字体数据，这也同时提出了一个需求：使用软字库。<br>              如果时光倒退无数年，会有专门卖 硬件字库 的，以及PC上类似于 UCDOS 这样软字库的东西。 单片机上各种中文的显示，大家常见的是U8G2这种东西，但是它的汉字非常不全面，基本用不起来。在使用 Tft_eSPI 的字库工具包 processing 过程中，&#x3D;&#x3D;网上有些教程误导我们先用 processing 创建vlw文件，再去转换成.h文件，最后编译进项目里面去&#x3D;&#x3D;。（我曾犯过这个错误） 这是一种完全的误导： - vlw 文件是可以被 tft_espi 项目直接使用的； - 无论是vlw还是.h格式的文件，如果是个别中文的处理毫无意义，而如果是完全的字符(类似于GB2312),这个vlw和.h文件都是非常巨大的，在我的esp32上是无法上传到flash空间中。<br>               基于经验的积累和对于 tft_espi 的部分学习，尝试用自己的方式来创建包含 gb2312 字符集的字库，经过测试后发觉：自己创建的16号字体 GB2312 字符集整体只有507k,这个比vlw文件少了一半的空间占用。并且， tft_espi 装载自己的vlw字库需要2秒，然后显示对应文字需要0.1x秒左右，而使用我自己创建字库利用tft_espi驱动显示同样的文字只需要0.28秒左右，整体性能提升已经达到了一个相对很高的程度。从空间占用和显示速度上都表现出了更优，为了方便大家更方便的进行单片机，所以把这个项目进行<a target="_blank" rel="noopener" href="https://github.com/StarCompute/tftziku">开源</a>。</p>
 <hr>
-<h3 id="2-Show-Text"><a href="#2-Show-Text" class="headerlink" title="2. Show Text"></a>2. Show Text</h3><ul>
-<li><strong>这是加粗</strong><blockquote>
-<p><em>这是斜体</em></p>
+<p>版权声明：本文为CSDN博主「platform」的原创文章，遵循CC 4.0 BY-SA版权协议。<br>原文链接：<code>https://blog.csdn.net/platform/article/details/130742775</code></p>
+<h3 id="系统结构："><a href="#系统结构：" class="headerlink" title="系统结构："></a>系统结构：</h3><h4 id="软字库的创建："><a href="#软字库的创建：" class="headerlink" title="软字库的创建："></a>软字库的创建：</h4><h5 id="包含的内容："><a href="#包含的内容：" class="headerlink" title="包含的内容："></a>包含的内容：</h5><blockquote>
+<p>软字体用 python 进行创建，在本项目中是 getunicode.py ，它是把绝大部分能够显示出来的GB2312字符集包含进来了，然后包括进来了常见的大小写英文字母和字符(从chr(33)&#x3D;chr(128)),由于 GB18030 的字库太大，所以是不可能使用 GB18030 ,使用了 GB2312 ,我们平常使用的文字基本都在这个字库中，例如“饕餮”这两个字都在GB2312中</p>
 </blockquote>
+<h5 id="软字库的格式："><a href="#软字库的格式：" class="headerlink" title="软字库的格式："></a>软字库的格式：</h5><ul>
+<li><p>软字体以x.font方式进行命名，采用纯文本进行存储。</p>
+</li>
+<li><p>x.font文件被分成了4个部分：</p>
+</li>
+<li><p>前6位16进制表示总共存储了多少字符；</p>
+</li>
+<li><p>7-8位用10进制表示存储的是多少号字体，</p>
+</li>
+<li><p>9-xxxx*5位存储的是字符的unicode编码，为了节省存储空间，一个汉字采取的是u+4位uncode编码；例如”u3001u3002u30fbu02c9u02c7” 是“、。・ˉˇ”对应的存储；每个GB2312字符转化为5个字符进行存储。</p>
+</li>
+<li><p>xxxx<em>5+1至xxxx</em>8存储的是每个字符对应的取字模数据的16进制编码。</p>
 </li>
 </ul>
-<h3 id="3-tag"><a href="#3-tag" class="headerlink" title="3. tag"></a>3. tag</h3>
+<h5 id="字模的格式："><a href="#字模的格式：" class="headerlink" title="字模的格式："></a>字模的格式：</h5><p>经过学习发现 TFT_eSPI 使用的vlw格式字库文件，其实是一种组合式的图片文件，而TFT_eSPI对于每个字符的显示其实就是动态取模。 本字库是提前对于字符取模，它采取把对应的字符画到图片上，然后获取每个位置的像素，每8个模 编码为16进制。取模顺序是从左到右，从上到下。</p>
+<h3 id="软字库在单片机中的使用："><a href="#软字库在单片机中的使用：" class="headerlink" title="软字库在单片机中的使用："></a>软字库在单片机中的使用：</h3><p>字体文件在单片机中的使用，其实是一个逆向过程：</p>
+<ul>
+<li><p>上传生成的字库到单片机中</p>
+</li>
+<li><p>输入要显示的汉字</p>
+</li>
+<li><p>读取x.font文件，读取前6位，获得总共有多少个字符；</p>
+</li>
+<li><p>再读取2位，确定字体对应的字号；</p>
+</li>
+<li><p>读取unicode字符集，判断是否同输入汉字的unicode匹配</p>
+</li>
+<li><p>利用匹配到的顺序，计算出字模的位置，依照字号获取对应长度的数据</p>
+</li>
+<li><p>把字模的16进制编码重新编码为二进制</p>
+</li>
+<li><p>利用TFT_eSPI 的 drawpix 方法把汉字输出到屏幕上（这里会有个方法计算能够显示多少汉字)</p>
+</li>
+<li><p>字库调用完成</p>
+<p>  .. 注意:: 英文字符的特殊性暂未处理。<br>  由于英文基本都是半角符号，中文是全角符号，理论上英文的输出只有中文的一半，但是本字库暂时未处理英文的半角输出问题，全部是全角输出，后续再进行整理。</p>
+</li>
+</ul>
+<h4 id="在终端输出："><a href="#在终端输出：" class="headerlink" title="在终端输出："></a>在终端输出：</h4><p>不同的输出终端代表着不同的输出方式，下面提供了两种方式：</p>
+<pre><code>String strBinDisplay = getPixBinStrFromString(&quot;这是一个软字体的显示&quot;);
+// 下面代码在终端输出文字点阵。
+Serial.println(strBinDisplay.length());
+for (int i = 0; i &lt; strBinDisplay.length(); i++)
+&#123;
+    if (i % 16 == 0)
+    Serial.print(&quot;\r\n&quot;);
+    if (strBinDisplay[i] == &#39;0&#39;)
+    Serial.print(&#39; &#39;);
+    if (strBinDisplay[i] == &#39;1&#39;)
+    Serial.print(strBinDisplay[i]);
+&#125;
+</code></pre>
+<h5 id="终端显示如下："><a href="#终端显示如下：" class="headerlink" title="终端显示如下："></a>终端显示如下：</h5><pre><code>   1
+   1    111111
+   1         1
+   1        1
+111111     1
+  1  1    1
+  1  1    1
+  1  1 11111111
+  1  1    1
+ 1  1     1
+  1 1     1
+   1      1
+  1 1     1
+ 1   1    1
+1    1  1 1
+         1
+   1     1
+   1     1
+   1     1
+1111111  11111
+  1     1    1
+  1 1   1   1
+ 1  1  1  1
+ 111111   1
+    1     1
+    1    1 1
+    111  1 1
+11111    1 1
+ 1  1   1   1
+    1   1   1
+    1  1     1
+    1 1       1
+</code></pre>
+<h5 id="通过单片机在tft屏幕显示："><a href="#通过单片机在tft屏幕显示：" class="headerlink" title="通过单片机在tft屏幕显示："></a>通过单片机在tft屏幕显示：</h5><pre><code>// 下面代码在TFT屏幕输出文字
+int pX = 16;
+int pY = 0;
+int fontsize=16; //字号
+int amountDisplay=10; //每行显示多少汉字
+int singleStrPixsAmount=fontsize*fontsize;
+for (int i = 0; i &lt; strBinDisplay.length(); i++)
+&#123;
+    // 这里必须有特别的说明，每个字符的像素点总数是singleStrPixsAmount=fontsize*fontsize,如果是16号字体就是256个；
+    // 每行显示10个字，那么他们到一点阶段就必须换行，x坐标归0，y坐标必须加上字体对应的像素
+    // 对于pX,每显示fontsize个像素后就必须字体归到起始点，注意每显示n字符后，这个起始点就必须加上fontsize*n这个起始值
+    // 同时对于换行也必须处理。
+ 
+    pX=int(i%fontsize)+int(i/(singleStrPixsAmount))*fontsize-int(i/(singleStrPixsAmount*amountDisplay))*fontsize*amountDisplay;
+ 
+    // 对于pY,每fontsize个像素后+1，每singleStrPixsAmount个像素后归0，同时每换一行，pY要加上fontsize个像素；
+    pY =int((i-int(i/singleStrPixsAmount)*singleStrPixsAmount)/fontsize)+int(i/(singleStrPixsAmount*amountDisplay))*fontsize;
+ 
+    if (strBinDisplay[i] == &#39;1&#39;)
+    &#123;
+    tft.drawPixel(pX, pY, TFT_GREEN);
+    &#125;
+&#125;
+</code></pre>
+
         </div>
 
         
@@ -246,7 +352,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://example.com/2023/11/30/Test/">http://example.com/2023/11/30/Test/</a></span>
+                        <span><a href="http://example.com/2023/12/03/Arduino-esp32-tft%E5%AE%9E%E7%8E%B0%E6%99%BA%E8%83%BD%E5%B0%8F%E7%94%B5%E8%A7%86%EF%BC%88%E6%9C%AA%E5%AE%8C/">http://example.com/2023/12/03/Arduino-esp32-tft%E5%AE%9E%E7%8E%B0%E6%99%BA%E8%83%BD%E5%B0%8F%E7%94%B5%E8%A7%86%EF%BC%88%E6%9C%AA%E5%AE%8C/</a></span>
                     </p>
                 
                 
@@ -270,7 +376,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E3%80%90test%E3%80%91/"># 【test】</a>
+                        <a href="/tags/%E3%80%90blog1%E3%80%91/"># 【blog1】</a>
                     
                         
                 </span>
@@ -283,10 +389,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2023/12/03/Arduino-esp32-tft%E5%AE%9E%E7%8E%B0%E6%99%BA%E8%83%BD%E5%B0%8F%E7%94%B5%E8%A7%86%EF%BC%88%E6%9C%AA%E5%AE%8C/">Arduino+esp32+tft实现智能小电视</a>
             
-            
-            <a class="next" rel="next" href="/2023/11/29/hello-world/">Hello World</a>
+            <a class="next" rel="next" href="/2023/11/30/Test/">Test</a>
             
         </section>
 
