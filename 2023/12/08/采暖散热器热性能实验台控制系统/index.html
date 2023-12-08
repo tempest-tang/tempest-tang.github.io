@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Tempest-tang">
+
+
+
+
+
+<title>采暖散热器热性能实验台控制系统 | Hexo</title>
+
+
+
+    <link rel="icon" href="/favicon1.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">tempest&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">tempest&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">采暖散热器热性能实验台控制系统</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Tempest-tang</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 8, 2023&nbsp;&nbsp;14:10:21</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/blog2/">blog2</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="采暖散热器热性能实验台控制系统"><a href="#采暖散热器热性能实验台控制系统" class="headerlink" title="采暖散热器热性能实验台控制系统"></a><strong>采暖散热器热性能实验台控制系统</strong></h1><h2 id="一、题目要求"><a href="#一、题目要求" class="headerlink" title="一、题目要求"></a>一、题目要求</h2><p>设计用于采暖散热器热性能实验台的控制系统的控制调节算法。包括&#x3D;&#x3D;水箱预加热器的控制&#x3D;&#x3D;，&#x3D;&#x3D;供水精调加热器的控制&#x3D;&#x3D;，以及&#x3D;&#x3D;空气循环侧空气加热器的控制&#x3D;&#x3D;。</p>
+<blockquote>
+<ul>
+<li>空气侧制冷机处于常开状态，并近似认为空气经过后湿球温度&#x3D;&#x3D;降低8°c&#x3D;&#x3D;，本作业中不考虑其控制调节；</li>
+<li>调节算法采用&#x3D;&#x3D;PID控制&#x3D;&#x3D;，或者采用&#x3D;&#x3D;模糊控制以及其他方法&#x3D;&#x3D;；</li>
+<li>进入被测散热器的水温应控制在&#x3D;&#x3D;设定温度±0.1°c&#x3D;&#x3D;，小室的空气温度控制在&#x3D;&#x3D;20±0.1°c&#x3D;&#x3D;；</li>
+<li>实验工况要求散热器进口水温分别为&#x3D;&#x3D;50±0.1°c，70±0.1°c，90±0.1°c&#x3D;&#x3D;【当各参数连续&#x3D;&#x3D;30分钟&#x3D;&#x3D;稳定地处于要求工况时，即可认为系统达到稳定】；</li>
+<li>达到稳定后开始工艺测量，测量后尽快调节到另一工况，以尽快地完成测量任务；</li>
+<li>不同型号散热器的时间常数相差10倍之多，传热系数相差5倍之多，为了便于操控，要求设计出的调节器&#x3D;&#x3D;适应于各种不同型号的散热器和如上三种不同的实验工况&#x3D;&#x3D;。</li>
+</ul>
+</blockquote>
+<h2 id="二、原理图以及符号含义说明"><a href="#二、原理图以及符号含义说明" class="headerlink" title="二、原理图以及符号含义说明"></a>二、原理图以及符号含义说明</h2><h3 id="1、原理图："><a href="#1、原理图：" class="headerlink" title="1、原理图："></a>1、原理图：</h3><p><img src="/%E9%87%87%E6%9A%96%E6%95%A3%E7%83%AD%E5%99%A8%E7%83%AD%E6%80%A7%E8%83%BD%E5%AE%9E%E9%AA%8C%E5%8F%B0%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F.assets/211.png"></p>
+<h3 id="2、符号含义及说明："><a href="#2、符号含义及说明：" class="headerlink" title="2、符号含义及说明："></a>2、符号含义及说明：</h3><table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">t<del>w~~r</del></td>
+<td align="center">散热器出水温度</td>
+</tr>
+<tr>
+<td align="center">t<del>w~~s</del></td>
+<td align="center">被测散热器进水温度</td>
+</tr>
+<tr>
+<td align="center">t<del>r</del></td>
+<td align="center">散热器温度</td>
+</tr>
+<tr>
+<td align="center">t<del>a</del></td>
+<td align="center">小室空气温度</td>
+</tr>
+<tr>
+<td align="center">t<del>0</del></td>
+<td align="center">回风温度</td>
+</tr>
+<tr>
+<td align="center">t<del>2</del></td>
+<td align="center">制冷机送风温度</td>
+</tr>
+<tr>
+<td align="center">t<del>w</del></td>
+<td align="center">小室外壳温度</td>
+</tr>
+</tbody></table>
+<h2 id="三、散热器实验台的控制管理需求"><a href="#三、散热器实验台的控制管理需求" class="headerlink" title="三、散热器实验台的控制管理需求"></a>三、散热器实验台的控制管理需求</h2><h3 id="1、启停控制："><a href="#1、启停控制：" class="headerlink" title="1、启停控制："></a>1、启停控制：</h3><blockquote>
+<ul>
+<li>空气循环侧空气加热器-&#x3D;&#x3D;4&#x3D;&#x3D;</li>
+<li>水箱预加热器-&#x3D;&#x3D;6&#x3D;&#x3D;</li>
+<li>供水精调加热器-&#x3D;&#x3D;7&#x3D;&#x3D;</li>
+</ul>
+</blockquote>
+<h3 id="2、参数控制："><a href="#2、参数控制：" class="headerlink" title="2、参数控制："></a>2、参数控制：</h3><blockquote>
+<ul>
+<li>小室温度：&#x3D;&#x3D;20±0.1°c&#x3D;&#x3D;</li>
+<li>供水温度：设定温度&#x3D;&#x3D;±0.1°c&#x3D;&#x3D;</li>
+</ul>
+</blockquote>
+<h3 id="3、其他要求："><a href="#3、其他要求：" class="headerlink" title="3、其他要求："></a>3、其他要求：</h3><blockquote>
+<ul>
+<li>快速切换工况，缩短到达稳定工况的时间：&#x3D;&#x3D;50±0.1°c，70±0.1°c，90±0.1°c&#x3D;&#x3D;</li>
+<li>节能</li>
+</ul>
+</blockquote>
+<h2 id="四、模型简化假设及建立"><a href="#四、模型简化假设及建立" class="headerlink" title="四、模型简化假设及建立"></a>四、模型简化假设及建立</h2><h3 id="散热器和小室模型："><a href="#散热器和小室模型：" class="headerlink" title="散热器和小室模型："></a>散热器和小室模型：</h3><h4 id="1、假设散热器表面温度与散热器回水温度相同，于是得到散热器微分方程："><a href="#1、假设散热器表面温度与散热器回水温度相同，于是得到散热器微分方程：" class="headerlink" title="1、假设散热器表面温度与散热器回水温度相同，于是得到散热器微分方程："></a>1、假设散热器表面温度与散热器回水温度相同，于是得到散热器微分方程：</h4><img src="采暖散热器热性能实验台控制系统.assets/131-1702029910829-3.png" style="zoom:67%;" />
+
+<p>其中&#x3D;&#x3D;t<del>wr</del>&#x3D;t<del>r</del>&#x3D;&#x3D;;&#x3D;&#x3D;K<del>rw</del>&#x3D;30w&#x2F;k&#x3D;&#x3D;为散热器与外壳之间的辐射换热系数；&#x3D;&#x3D;K<del>ra</del>&#x3D;45w&#x2F;k&#x3D;&#x3D;为散热器与小室内空气的对流换热系数。</p>
+<h4 id="2、小室内空气微分方程："><a href="#2、小室内空气微分方程：" class="headerlink" title="2、小室内空气微分方程："></a>2、小室内空气微分方程：</h4><img src="采暖散热器热性能实验台控制系统.assets/141.png"  />
+
+<p>其中，&#x3D;&#x3D;c<del>a</del>&#x3D;v<del>a</del>c<del>p</del>ρ&#x3D;&#x3D;,&#x3D;&#x3D;v<del>a</del>&#x3D;60m^3^&#x3D;&#x3D;;<br>&#x3D;&#x3D;K<del>wa</del>&#x3D;800w&#x2F;k&#x3D;&#x3D;为铁壳与小室内空气对流换热系数；<br>&#x3D;&#x3D;K<del>ra</del>&#x3D;45w&#x2F;k&#x3D;&#x3D;为散热器与铁壳内空气的对流换热系数。</p>
+<h4 id="3、小室壁面（外壳）微分方程："><a href="#3、小室壁面（外壳）微分方程：" class="headerlink" title="3、小室壁面（外壳）微分方程："></a>3、小室壁面（外壳）微分方程：</h4><p><img src="/%E9%87%87%E6%9A%96%E6%95%A3%E7%83%AD%E5%99%A8%E7%83%AD%E6%80%A7%E8%83%BD%E5%AE%9E%E9%AA%8C%E5%8F%B0%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F.assets/151.png"></p>
+<p>其中外壳厚&#x3D;&#x3D;6mm&#x3D;&#x3D;,&#x3D;&#x3D;h&#x3D;3m&#x3D;&#x3D;,&#x3D;&#x3D;s&#x3D;16m&#x3D;&#x3D;,因此&#x3D;&#x3D;c<del>w</del>&#x3D;ρ<del>w</del>v<del>w</del>c<del>w</del>&#x3D;1.02×10^6^J&#x2F;k&#x3D;&#x3D;; &#x3D;&#x3D;K<del>wa</del>&#x3D;800w&#x2F;k&#x3D;&#x3D;为外壳与小室内空气对流换热系数；&#x3D;&#x3D;K<del>rw</del>&#x3D;30w&#x2F;k&#x3D;&#x3D;为散热器与外壳之间的辐射换热系数。</p>
+<h4 id="4、外壳外空气层微分方程："><a href="#4、外壳外空气层微分方程：" class="headerlink" title="4、外壳外空气层微分方程："></a>4、外壳外空气层微分方程：</h4><p><img src="/%E9%87%87%E6%9A%96%E6%95%A3%E7%83%AD%E5%99%A8%E7%83%AD%E6%80%A7%E8%83%BD%E5%AE%9E%E9%AA%8C%E5%8F%B0%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F.assets/161.png"></p>
+<p>空气层体积&#x3D;&#x3D;v&#x3D;60m^3^&#x3D;&#x3D;,比热&#x3D;&#x3D;c<del>p</del>&#x3D;1.005kJ&#x2F;(kg.k)&#x3D;&#x3D;;空调箱风量&#x3D;&#x3D;G&#x3D;1000m^3^&#x2F;h&#x3D;&#x3D;;&#x3D;&#x3D;K<del>w0</del>&#x3D;1200w&#x2F;k&#x3D;&#x3D;为外壳与外空气层之间的对流换热系数。</p>
+<h3 id="空气循环侧处理设备模型"><a href="#空气循环侧处理设备模型" class="headerlink" title="空气循环侧处理设备模型:"></a>空气循环侧处理设备模型:</h3><h4 id="1、表冷器（空气侧制冷机）："><a href="#1、表冷器（空气侧制冷机）：" class="headerlink" title="1、表冷器（空气侧制冷机）："></a>1、表冷器（空气侧制冷机）：</h4><p>认为空气经过后空气湿球温度降低&#x3D;&#x3D;8°c&#x3D;&#x3D;。</p>
+<h4 id="2、加热器微分方程："><a href="#2、加热器微分方程：" class="headerlink" title="2、加热器微分方程："></a>2、加热器微分方程：</h4><img src="采暖散热器热性能实验台控制系统.assets/w.png"  />
+
+<p>其中，&#x3D;&#x3D;C<del>h</del>&#x3D;150kJ&#x2F;k&#x3D;&#x3D;为加热器比热；&#x3D;&#x3D;K<del>h</del>&#x3D;400w&#x2F;k&#x3D;&#x3D;为加热器与空气对流换热系数；本题目中，加热器功率可以连续调节，加热器最大功率为&#x3D;&#x3D;Q&#x3D;12000w&#x3D;&#x3D;。<br>经过加热器空气稳态方程：</p>
+<p><img src="/%E9%87%87%E6%9A%96%E6%95%A3%E7%83%AD%E5%99%A8%E7%83%AD%E6%80%A7%E8%83%BD%E5%AE%9E%E9%AA%8C%E5%8F%B0%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F.assets/q.png"></p>
+<p>其中，&#x3D;&#x3D;c<del>2</del>&#x3D;1.005kJ&#x2F;kg.k&#x3D;&#x3D;为空气比热；&#x3D;&#x3D;K<del>h</del>&#x3D;400w&#x2F;k&#x3D;&#x3D;为加热器与空气对流换热系数。</p>
+<h3 id="水箱加热器模型（预加热器和供水精调加热器）："><a href="#水箱加热器模型（预加热器和供水精调加热器）：" class="headerlink" title="水箱加热器模型（预加热器和供水精调加热器）："></a>水箱加热器模型（预加热器和供水精调加热器）：</h3><p>散热器标定实验需要控制散热器进口水温分别达到&#x3D;&#x3D;90±0.1℃&#x3D;&#x3D;,&#x3D;&#x3D;80±0.1℃&#x3D;&#x3D;和&#x3D;&#x3D;60±0.1℃&#x3D;&#x3D;。用两级加热器以及回水旁通控制水温。本题目中，回水旁通量已确定，回水量与补水量之比&#x3D;&#x3D;k1＝7&#x2F;3&#x3D;&#x3D;保持不变。补水温度为&#x3D;&#x3D;15°c&#x3D;&#x3D;，补水量&#x3D;&#x3D;G<del>b</del>&#x3D;1000kg&#x2F;h&#x3D;&#x3D;。</p>
+<h4 id="1、水箱预加热器："><a href="#1、水箱预加热器：" class="headerlink" title="1、水箱预加热器："></a>1、水箱预加热器：</h4><img src="采暖散热器热性能实验台控制系统.assets/e.png" style="zoom:150%;" />
+
+<h4 id="2、供水精调加热器："><a href="#2、供水精调加热器：" class="headerlink" title="2、供水精调加热器："></a>2、供水精调加热器：</h4><img src="采暖散热器热性能实验台控制系统.assets/r.png" style="zoom:150%;" />
+
+<p>其中，&#x3D;&#x3D;t<del>er</del>&#x3D;15°c&#x3D;&#x3D;为环境温度，&#x3D;&#x3D;C1＝C2＝41.9kJ&#x2F;k&#x3D;&#x3D;，&#x3D;&#x3D;K＝0.1J&#x2F;k&#x3D;&#x3D;为水箱与外环境对流换热系数，&#x3D;&#x3D;G<del>b</del>C<del>b</del>&#x3D;81.7J&#x2F;k&#x3D;&#x3D;；&#x3D;&#x3D;t<del>g1</del>&#x3D;(3t<del>b</del>+7t<del>ws</del>)&#x2F;10&#x3D;&#x3D;为水箱1的进口水温；t<del>g2</del>为水箱2的进口水温，也即水箱1的出口水温；&#x3D;&#x3D;Q<del>1</del>&#x3D;Q<del>2</del>&#x3D;12000W&#x3D;&#x3D;为加热器最大功率。</p>
+<p>注：以上公式中，下标表示内容如下表</p>
+<table>
+<thead>
+<tr>
+<th align="center">下标</th>
+<th align="center">内容</th>
+<th align="center">下标</th>
+<th align="center">内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">W</td>
+<td align="center">散热器小室壁面（外壳）</td>
+<td align="center">r</td>
+<td align="center">散热器片</td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td align="center">散热器小室内空气</td>
+<td align="center">h</td>
+<td align="center">加热器铁皮</td>
+</tr>
+<tr>
+<td align="center">G1</td>
+<td align="center">水箱1供水</td>
+<td align="center">g2</td>
+<td align="center">水箱2供水</td>
+</tr>
+<tr>
+<td align="center">ws</td>
+<td align="center">散热器供水</td>
+<td align="center">er</td>
+<td align="center">外环境</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">散热器小室外空气层</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h2 id="五、简化算法代码"><a href="#五、简化算法代码" class="headerlink" title="五、简化算法代码"></a>五、简化算法代码</h2><p>clc;<br>clear;</p>
+<p>T_set_t1 &#x3D; 50; %设置散热器进口水温为50°c<br>T_set_ta &#x3D; 20; %设置小室温度为20°c<br>Kp &#x3D; 1; %比例增益系数<br>Kd &#x3D; 0.2; %微分增益系数<br>sim_time &#x3D; 2000; %工况要求至少持续稳定30分钟</p>
+<p>heat_transfer_coefficient &#x3D; 6; %传热系数相差5倍多<br>time_constant &#x3D; 11; %时间常数相差10倍多   </p>
+<p>error_water_heater1_prev &#x3D; 0;<br>error_water_heater2_prev &#x3D; 0;<br>error_air_heater_prev &#x3D; 0;</p>
+<p>heating_system &#x3D; @(t, x) [<br>    (T_set_t1 - x(1)) &#x2F; time_constant + heat_transfer_coefficient * (x(2) - x(1));<br>    (T_set_t1 - x(2)) &#x2F; time_constant + heat_transfer_coefficient * (x(3) - x(2));<br>    (T_set_ta - x(3)) &#x2F; time_constant + heat_transfer_coefficient * (T_set_ta - x(3))<br>];<br>[t, y] &#x3D; ode45(heating_system, [0 sim_time], [T_set_t1; T_set_t1; T_set_ta]);</p>
+<p>Kp_air_heater&#x3D; Kp;<br>Kd_air_heater&#x3D; Kd;<br>Kp_water_heater1 &#x3D; Kp;<br>Kd_water_heater1 &#x3D; Kd;<br>Kp_water_heater2 &#x3D; Kp;<br>Kd_water_heater2 &#x3D; Kd;</p>
+<p>for i &#x3D; 2:length(t)<br>    error_air_heater &#x3D; T_set_ta - y(i, 3);<br>    error_water_heater1 &#x3D; T_set_t1 - y(i, 1);<br>    error_water_heater2 &#x3D; T_set_t1 - y(i, 2);<br>    u_air_heater &#x3D; Kp_air_heater * error_air_heater + Kd_air_heater * (error_air_heater - error_air_heater_prev);<br>    u_water_heater1 &#x3D; Kp_water_heater1 * error_water_heater1 + Kd_water_heater1 * (error_water_heater1 - error_water_heater1_prev);<br>    u_water_heater2 &#x3D; Kd_water_heater2 * error_water_heater2 + Kd_water_heater2 * (error_water_heater2 - error_water_heater2_prev);<br>    error_water_heater1_prev &#x3D; error_water_heater1;<br>    error_water_heater2_prev &#x3D; error_water_heater2;<br>    error_air_heater_prev &#x3D; error_air_heater;<br>    y(i, 3) &#x3D; y(i, 3) + u_air_heater;<br>    y(i, 1) &#x3D; y(i, 1) + u_water_heater1;<br>    y(i, 2) &#x3D; y(i, 2) + u_water_heater2;<br>end</p>
+<p>figure;</p>
+<p>subplot(3,1,1);<br>plot(t, y(:, 3), ‘r’, ‘LineWidth’, 1);<br>hold on;<br>plot(t, T_set_ta * ones(size(t)), ‘–’, ‘LineWidth’, 0.5);<br>xlabel(‘time’);<br>ylabel(‘water temperature’);<br>title(‘空气循环侧空气加热器’);<br>legend(‘actual temperature’, ‘set temperature’, ‘Location’, ‘Best’);</p>
+<p>subplot(3,1,2);<br>plot(t, y(:, 1), ‘b’, ‘LineWidth’, 1);<br>hold on;<br>plot(t, T_set_t1 * ones(size(t)), ‘–’, ‘LineWidth’, 0.5);<br>xlabel(‘time’);<br>ylabel(‘water temperature’);<br>title(‘水箱预加热器’);<br>legend(‘actual temperature’, ‘set temperature’, ‘Location’, ‘Best’);</p>
+<p>subplot(3,1,3);<br>plot(t, y(:, 2), ‘black’, ‘LineWidth’, 1);<br>hold on;<br>plot(t, T_set_t1 * ones(size(t)), ‘–’, ‘LineWidth’, 0.5);<br>xlabel(‘time’);<br>ylabel(‘water temperature’);<br>title(‘供水精调加热器’);</p>
+<p>legend(‘actual temperature’, ‘set temperature’, ‘Location’, ‘Best’);</p>
+<p><img src="/%E9%87%87%E6%9A%96%E6%95%A3%E7%83%AD%E5%99%A8%E7%83%AD%E6%80%A7%E8%83%BD%E5%AE%9E%E9%AA%8C%E5%8F%B0%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F.assets/21200124226.png"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Tempest-tang</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/12/08/%E9%87%87%E6%9A%96%E6%95%A3%E7%83%AD%E5%99%A8%E7%83%AD%E6%80%A7%E8%83%BD%E5%AE%9E%E9%AA%8C%E5%8F%B0%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/">http://example.com/2023/12/08/%E9%87%87%E6%9A%96%E6%95%A3%E7%83%AD%E5%99%A8%E7%83%AD%E6%80%A7%E8%83%BD%E5%AE%9E%E9%AA%8C%E5%8F%B0%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E3%80%90automation%E3%80%91/"># 【automation】</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2023/12/03/Arduino-esp32-tft%E5%AE%9E%E7%8E%B0%E6%99%BA%E8%83%BD%E5%B0%8F%E7%94%B5%E8%A7%86%EF%BC%88%E6%9C%AA%E5%AE%8C/">Arduino+esp32+tft实现智能小电视</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Tempest-tang | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
+<script>
+!
+function() {
+  function n(n, e, t) {
+    return n.getAttribute(e) || t
+ }
+  function e(n) {
+    return document.getElementsByTagName(n)
+ }
+  function t() {
+     var t = e("script"),
+    o = t.length,
+    i = t[o - 1];
+    return {
+      l: o,
+      z: n(i, "zIndex", -1),   //置于主页面背后
+      o: n(i, "opacity", .5),   //线条透明度
+      c: n(i, "color", "99,184,255"),  //线条颜色
+      n: n(i, "count", 150)   //线条数量
+   }
+ }
+  function o() {
+    a = m.width = window.innerWidth ||
+document.documentElement.clientWidth || document.body.clientWidth,
+    c = m.height = window.innerHeight ||
+document.documentElement.clientHeight || document.body.clientHeight
+ }
+  function i() {
+    r.clearRect(0, 0, a, c);
+    var n, e, t, o, m, l;
+    s.forEach(function(i, x) {
+      for (i.x += i.xa, i.y += i.ya, i.xa *= i.x > a || i.x < 0 ? -1 :
+1, i.ya *= i.y > c || i.y < 0 ? -1 : 1, r.fillRect(i.x - .5, i.y - .5, 1,
+1), e = x + 1; e < u.length; e++) n = u[e],
+      null !== n.x && null !== n.y && (o = i.x - n.x, m = i.y - n.y, l
+= o * o + m * m, l < n.max && (n === y && l >= n.max / 2 && (i.x -= .03 * o,
+i.y -= .03 * m), t = (n.max - l) / n.max, r.beginPath(), r.lineWidth = t /
+2, r.strokeStyle = "rgba(" + d.c + "," + (t + .2) + ")", r.moveTo(i.x, i.y),
+r.lineTo(n.x, n.y), r.stroke()))
+   }),
+    x(i)
+ }
+  var a, c, u, m = document.createElement("canvas"),
+  d = t(),
+  l = "c_n" + d.l,
+  r = m.getContext("2d"),
+  x = window.requestAnimationFrame || window.webkitRequestAnimationFrame
+|| window.mozRequestAnimationFrame || window.oRequestAnimationFrame ||
+window.msRequestAnimationFrame ||
+  function(n) {
+    window.setTimeout(n, 1e3 / 45)
+ },
+  w = Math.random,
+  y = {
+    x: null,
+    y: null,
+    max: 2e4
+ };
+  m.id = l,
+  m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z +
+";opacity:" + d.o,
+  e("body")[0].appendChild(m),
+  o(),
+  window.onresize = o,
+  window.onmousemove = function(n) {
+    n = n || window.event,
+    y.x = n.clientX,
+    y.y = n.clientY
+评论区采用的时Valine https://valine.js.org/ 和LeanCloud
+ },
+  window.onmouseout = function() {
+    y.x = null,
+    y.y = null
+ };
+  for (var s = [], f = 0; d.n > f; f++) {
+    var h = w() * a,
+    g = w() * c,
+    v = 2 * w() - 1,
+    p = 2 * w() - 1;
+    s.push({
+      x: h,
+      y: g,
+      xa: v,
+      ya: p,
+      max: 6e3
+   })
+ }
+  u = s.concat([y]),
+  setTimeout(function() {
+    i()
+ },
+  100)
+} ();
+</script>
+<script type="text/javascript"
+color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="\js\snow.js"></script>
